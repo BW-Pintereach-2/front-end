@@ -5,7 +5,6 @@ import styled from "styled-components";
 const RegistrationLogin = styled.div`
     width : 80%;
     margin : 0 auto;
-    background : red;
 
     display : flex;
     justify-content : center; 
@@ -24,26 +23,35 @@ const RegistrationLogin = styled.div`
     {
         display : block;
     }
+
+    input[ type = "submit" ]
+    {
+        text-align : center;
+        margin : 0 auto;
+        width : 100%;
+        height : 40px;
+        border : none;
+    }
 `;
 
-function ComponentName()
+function ComponentName( props )
 {
   return(
     <RegistrationLogin>
-        <form onSubmit="">
+        <form onSubmit = { props.onSubmitCreateForm } >
             <h1>Create Account</h1>
-            <input type = "text"     name = "name"     placeholder = "Enter Name"     />
-            <input type = "email"    name = "email"    placeholder = "Enter Email"    />
-            <input type = "password" name = "password" placeholder = "Enter Password" />
-            <button>Sign Up</button>
+            <input type = "text"     name = "name"     placeholder = "Enter Name"     value = { props.createAccountForm.name      } onChange = { props.onChangeCreate } />
+            <input type = "email"    name = "email"    placeholder = "Enter Email"    value = { props.createAccountForm.email     } onChange = { props.onChangeCreate } />
+            <input type = "password" name = "password" placeholder = "Enter Password" value = { props.createAccountForm.password  } onChange = { props.onChangeCreate } />
+            <input type = "submit" value = "Sign Up" />
         </form>
 
-        <form onSubmit="">
+        <form onSubmit = { props.onSubmitSignInForm } >
             <h1>Sign In</h1>
-            <input type = "email"    name = "name"     placeholder = "Enter Email"    />
-            <input type = "password" name = "password" placeholder = "Enter Password" />
+            <input type = "email"    name = "name"     placeholder = "Enter Email"    value = { props.signInForm.email    } onChange = { props.onChangeSignIn } />
+            <input type = "password" name = "password" placeholder = "Enter Password" value = { props.signInForm.password } onChange = { props.onChangeSignIn } />
             <a href = "#" >Forgot password?</a>
-            <button>Sign In</button>
+            <input type = "submit" value = "Sign In" />
         </form>
     </RegistrationLogin>
   )

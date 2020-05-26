@@ -11,17 +11,36 @@ function App()
 
   const onChangeCreate = e => 
   {
+    setCreateAccountForm( { ...createAccountForm, [ e.target.name ] : e.target.value } );
+  };
+
+  const onChangeSignIn = e =>
+  {
+    setSignIn( { ...signInForm, [ e.target.name ] : e.target.value } );
+  }
+
+  const onSubmitCreateForm = e =>
+  {
     e.preventDefault();
+  }
 
-  }; 
-
-  const onChangeCreateSignIn = e =>
+  const onSubmitSignInForm = e =>
   {
     e.preventDefault();
   }
 
   return (
-    <LoginRegistration />      
+    <div>
+      <h1>Login and registration</h1>  
+      <LoginRegistration 
+        createAccountForm  = { createAccountForm  } 
+        signInForm         = { signInForm         } 
+        onChangeCreate     = { onChangeCreate     }
+        onChangeSignIn     = { onChangeSignIn     }
+        onSubmitCreateForm = { onSubmitCreateForm }
+        onSubmitSignInForm = { onSubmitSignInForm } 
+      />
+    </div>
   );
 }
 
