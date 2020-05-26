@@ -1,25 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import LoginRegistration from "./components/login-registration/LoginResgistration";
+import { CREATE_ACCOUNT, SIGN_IN } from "./utils/constants";
+
 import './App.css';
 
-function App() {
+function App() 
+{
+  const [ createAccountForm, setCreateAccountForm ] = useState( CREATE_ACCOUNT );
+  const [ signInForm       , setSignIn            ] = useState( SIGN_IN        );
+
+  const onChangeCreate = e => 
+  {
+    e.preventDefault();
+
+  }; 
+
+  const onChangeCreateSignIn = e =>
+  {
+    e.preventDefault();
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <LoginRegistration />      
   );
 }
 
