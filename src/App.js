@@ -1,39 +1,29 @@
-
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+import axios from "axios";
 
+import { Header, FilterContainer } from "./AppStyled";
 import Form from "./components/login-registration/Form";
 import Articles from "./components/articles/Articles";
 import PrivateRoute from "./utils/PrivateRoute";
 
-import styled from "styled-components";
-
-
 import { CREATE_ACCOUNT, SIGN_IN } from "./utils/constants";
 
-import './App.css';
+axios.defaults.baseURL = "https://pintereach-web29.herokuapp.com/";
 
-const d = [ { id : 0, title : "HEllo", content : "asdfasf", pinned : false } ];
-
-const Header = styled.div`
-  color : whitesmoke;
-  font-size : 120px;
-  text-align : center;
-  margin: 100px;
-  font-family: 'Pacifico', cursive;
-  letter-spacing : 13px;
-`;
+const d = [ { title : "HEllo", content : "asdfasf", pinned : true }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : true }, { title : "HEllo", content : "asdfasf", pinned : true }, { title : "HEllo", content : "asdfasf", pinned : false } ];
 
 function App() 
 {
   const [ createAccountForm, setCreateAccountForm ] = useState( CREATE_ACCOUNT );
-
   const [ signInForm       , setSignIn            ] = useState( SIGN_IN        );
+
   const [ alreadyUser      , setAlreadyUser       ] = useState( false          );
-
-  const [ listOfArticles   , setListOfArticles    ] = useState( d             ); 
-
+  
+  const [ filter           , setFilter            ] = useState( false          );
+  const [ listOfArticles   , setListOfArticles    ] = useState( d              ); 
+  
   const onChangeCreate = e => 
   {
     setCreateAccountForm( { ...createAccountForm, [ e.target.name ] : e.target.value } );
@@ -44,8 +34,6 @@ function App()
     setSignIn( { ...signInForm, [ e.target.name ] : e.target.value } );
   }
 
- 
-
   useEffect( () => {
 
   }, [ listOfArticles.length ] )
@@ -53,12 +41,18 @@ function App()
   return (
     <BrowserRouter>
 
-
       <Header>PinteReach</Header>
 
       <Switch>
+        
         <Route path = "/articles">
-          <Articles listOfArticles = { listOfArticles } />
+
+          <FilterContainer>
+            <button onClick = { e => setFilter( !filter ) } >My Articles</button>
+          </FilterContainer>
+
+          { filter ? <Articles listOfArticles = { listOfArticles.filter( article => article.pinned ) } /> : <Articles listOfArticles = { listOfArticles } /> }
+          
         </Route>
 
         <Route path = "/" exact>
@@ -69,9 +63,8 @@ function App()
           />
         </Route>
 
-        {/* onSubmit       = { [ onSubmitSignInForm, onSubmitCreateForm ] }  */}
-
       </Switch>
+
     </BrowserRouter>
   );
 }
