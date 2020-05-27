@@ -4,7 +4,7 @@ import SignInForm from "./SignInForm";
 import CreateAccountForm from "./CreateAccountForm";
 
 
-function Form( { user, form, onChange, onSubmit } )
+function Form( { user, form, onChange } )
 {
   return(
     <div> 

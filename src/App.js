@@ -17,7 +17,9 @@ function App()
 {
   const [ createAccountForm, setCreateAccountForm ] = useState( CREATE_ACCOUNT );
   const [ signInForm       , setSignIn            ] = useState( SIGN_IN        );
+
   const [ alreadyUser      , setAlreadyUser       ] = useState( false          );
+  
   const [ filter           , setFilter            ] = useState( false          );
   const [ listOfArticles   , setListOfArticles    ] = useState( d              ); 
   
@@ -32,10 +34,6 @@ function App()
   }
 
   useEffect( () => {
-
-    axios(  "https://pintereach-web29.herokuapp.com/" )
-      .then( response => console.log( response ) )
-      .catch( response => console.log( response ) )
 
   }, [ listOfArticles.length ] )
 
