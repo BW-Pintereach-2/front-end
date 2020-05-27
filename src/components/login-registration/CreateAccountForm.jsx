@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import FormContainer from "./FormStyled";
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 export default function( { setUser, form, onChange } )
 {
@@ -10,16 +11,23 @@ export default function( { setUser, form, onChange } )
   {
     //Validate -> using YUP!!!
     e.preventDefault();
-    history.push( "/articles" );
-    console.log( "HELLO WORLD" );
-    
+    axiosWithAuth()
+      .post("/api/auth/register", form)
+      .then( res => {
+        console.log(res);
+        history.push( "/articles" );
+        console.log( "HELLO WORLD" );
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   return(
     <FormContainer>
         <form onSubmit = { onSubmit } >
             <h1>Create Account</h1>
-            <input type = "text"     name = "name"     placeholder = "Enter Name"     value = { form.name      } onChange = { onChange } />
+            <input type = "text"     name = "username"     placeholder = "Enter username"     value = { form.username      } onChange = { onChange } />
             <input type = "email"    name = "email"    placeholder = "Enter Email"    value = { form.email     } onChange = { onChange } />
             <input type = "password" name = "password" placeholder = "Enter Password" value = { form.password  } onChange = { onChange } />
             <input type = "submit" value = "Sign Up" />

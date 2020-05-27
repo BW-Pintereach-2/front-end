@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Form from "./components/login-registration/Form";
 import Articles from "./components/articles/Articles";
+import PrivateRoute from "./utils/PrivateRoute";
 
 import styled from "styled-components";
 
