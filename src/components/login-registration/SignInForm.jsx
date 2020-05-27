@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import FormContainer from "./FormStyled";
 
@@ -11,15 +11,14 @@ export default function( { setUser, form, onChange } )
 
   const onSubmit = e =>
   {
-    
     //Validate -> using YUP!!!
     e.preventDefault();
     axiosWithAuth()
       .post("/api/auth/login", form)
       .then(res => {
         console.log(res);
+        localStorage.setItem('token', res.data.token);
         history.push( "/articles" );
-        console.log( "HELLO WORLD" );
       })
       console.log("hi")
   }

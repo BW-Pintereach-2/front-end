@@ -1,8 +1,8 @@
 
 const CREATE_ACCOUNT = 
 {
-    username     : "",
     email    : "",
+    username     : "",
     password : "",
 };
 
