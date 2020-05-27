@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Form from "./components/login-registration/Form";
 import Articles from "./components/articles/Articles";
 
+import styled from "styled-components";
 
 
 import { CREATE_ACCOUNT, SIGN_IN } from "./utils/constants";
@@ -12,6 +13,15 @@ import { CREATE_ACCOUNT, SIGN_IN } from "./utils/constants";
 import './App.css';
 
 const d = [ { id : 0, title : "HEllo", content : "asdfasf", pinned : false } ];
+
+const Header = styled.div`
+  color : whitesmoke;
+  font-size : 120px;
+  text-align : center;
+  margin: 100px;
+  font-family: 'Pacifico', cursive;
+  letter-spacing : 13px;
+`;
 
 function App() 
 {
@@ -41,6 +51,8 @@ function App()
   return (
     <BrowserRouter>
 
+
+      <Header>PinteReach</Header>
 
       <Switch>
         <Route path = "/articles">
