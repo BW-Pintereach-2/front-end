@@ -13,7 +13,7 @@ import { CREATE_ACCOUNT, SIGN_IN } from "./utils/constants";
 
 import './App.css';
 
-const d = [ { id : 0, title : "HEllo", content : "asdfasf", pinned : false } ];
+const d = [ { title : "HEllo", content : "asdfasf", pinned : false } ];
 
 const Header = styled.div`
   color : whitesmoke;
