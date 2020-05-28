@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import FormContainer from "./FormStyled";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
-export default function( { setUser, form, onChange } )
+export default function( { setUser, form, onChange, setUserLoggedIn } )
 {
 
   const history = useHistory();
@@ -15,11 +15,10 @@ export default function( { setUser, form, onChange } )
     axiosWithAuth()
       .post("/api/auth/login", form)
       .then(res => {
-        console.log(res);
+        setUserLoggedIn( true );
         localStorage.setItem('token', res.data.token);
         history.push( "/articles" );
       })
-      console.log("hi")
   }
 
   return(

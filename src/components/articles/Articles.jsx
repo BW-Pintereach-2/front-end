@@ -6,9 +6,7 @@ export default function( { listOfArticles } )
 {
   return(
     <ArticlesContainer>
-
-        { listOfArticles.map( article => <Article id = { article.id } title = { article.title } content = { article.content } />) }
-      
+        { listOfArticles.map( article => <Article id = { article.id } title = { article.name } content = { article.article } />) }
     </ArticlesContainer>
   )
 }

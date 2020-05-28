@@ -4,11 +4,11 @@ import SignInForm from "./SignInForm";
 import CreateAccountForm from "./CreateAccountForm";
 
 
-function Form( { user, form, onChange } )
+function Form( { user, form, onChange,  setUserLoggedIn } )
 {
   return(
     <div> 
-      { user[ 0 ] ? <SignInForm setUser = { user[ 1 ] } form = { form[ 0 ] } onChange = { onChange[ 0 ] } /> :
+      { user[ 0 ] ? <SignInForm setUser = { user[ 1 ] } form = { form[ 0 ] } onChange = { onChange[ 0 ] }  setUserLoggedIn = {  setUserLoggedIn } /> :
                     <CreateAccountForm setUser = { user[ 1 ] } form = { form[ 1 ] } onChange = { onChange[ 1 ] } /> }
     </div>
   )

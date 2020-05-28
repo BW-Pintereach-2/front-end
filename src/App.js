@@ -4,7 +4,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Header, FilterContainer } from "./AppStyled";
 import Form from "./components/login-registration/Form";
 import Articles from "./components/articles/Articles";
-import PrivateRoute from "./utils/PrivateRoute";
+import { axiosWithAuth } from "./utils/axiosWithAuth";
+import SignInForm from "./components/login-registration/SignInForm";
 
 import { CREATE_ACCOUNT, SIGN_IN } from "./utils/constants";
 
@@ -13,12 +14,11 @@ const d = [ { title : "HEllo", content : "asdfasf asdfasf asdfasfasdfasfasdfasfa
 function App() 
 {
   const [ createAccountForm, setCreateAccountForm ] = useState( CREATE_ACCOUNT );
-  const [ signInForm       , setSignIn            ] = useState( SIGN_IN        );
-
-  const [ alreadyUser      , setAlreadyUser       ] = useState( false          );
-  
-  const [ filter           , setFilter            ] = useState( false          );
-  const [ listOfArticles   , setListOfArticles    ] = useState( d              ); 
+  const [ signInForm, setSignIn ] = useState( SIGN_IN );
+  const [ alreadyUser, setAlreadyUser ] = useState( false );
+  const [ filter, setFilter ] = useState( false );
+  const [ listOfArticles, setListOfArticles ] = useState( [] );
+  const [ userLoggedIn, setUserLoggedIn ] = useState( false ); 
   
   const onChangeCreate = e => 
   {
@@ -31,8 +31,18 @@ function App()
   }
 
   useEffect( () => {
-    
-  }, [ listOfArticles.length ] )
+    axiosWithAuth().get( "/api/articles" )
+      .then( response => 
+        {
+          console.log( "HERE", response.data.data );
+          setListOfArticles( prev => prev.concat( response.data.data ) );
+          console.log( "WTF", listOfArticles );
+        } )
+      .catch( response => console.log( response ) )
+
+  }, [ userLoggedIn ] );
+
+  useEffect( () => {}, listOfArticles.length );
 
   const onClickButtonFilter = function( e )
   {
@@ -53,15 +63,20 @@ function App()
             <button id = "filterButton" onClick = { onClickButtonFilter } >View My Articles</button>
           </FilterContainer>
 
-          { filter ? <Articles listOfArticles = { listOfArticles.filter( article => article.pinned ) } /> : <Articles listOfArticles = { listOfArticles } /> }
+          { filter ? <Articles listOfArticles = { listOfArticles.filter( article => article.isSaved ) } /> : <Articles listOfArticles = { listOfArticles } /> }
           
+        </Route>
+
+        <Route path = "/login" >
+          <SignInForm setUser = { setAlreadyUser } setUserLoggedIn = { setUserLoggedIn } form = { signInForm } onChange = { onChangeSignIn } />  
         </Route>
 
         <Route path = "/" exact>
           <Form 
-            user           = { [ alreadyUser       , setAlreadyUser     ] }
-            form           = { [ signInForm        , createAccountForm  ] }
-            onChange       = { [ onChangeSignIn    , onChangeCreate     ] }
+            user = { [ alreadyUser, setAlreadyUser ] }
+            form = { [ signInForm, createAccountForm ] }
+            onChange = { [ onChangeSignIn, onChangeCreate ] }
+            setUserLoggedIn = { setUserLoggedIn }
           />
         </Route>
 

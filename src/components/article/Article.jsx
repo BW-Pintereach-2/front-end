@@ -12,7 +12,7 @@ export default function( { id, title, content } )
       <div className = "articleContainer" >
         <div className = "fas fa-thumbtack" onClick = { e => e.target.classList.toggle( "selected" ) }></div>
         <h3 className = "articleTitle" >{ title }</h3>
-        <p className = "articleContent"> { readFullDescription ? content : content.substring( 0, 30 ) + "..."  } </p>
+        <p className = "articleContent"> { readFullDescription ? content : content + "..."  } </p>
         <a onClick = { e => setReadFullDescription( !readFullDescription ) } > { readFullDescription ? "Read Less..." : "Read More..." } </a>       
       </div>
     </ArticleContainer>
