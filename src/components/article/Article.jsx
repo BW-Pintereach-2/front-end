@@ -8,13 +8,14 @@ Modal.setAppElement( "#root" );
 export default function( { id, title, content, onClickSaveArticle, isSaved } )
 {
   const [ modal, setModal ] = useState( false );
+  const thumbtack = isSaved ? 
+  <div className = "selected fas fa-thumbtack" id = { id } onClick = { onClickSaveArticle }></div> : 
+  <div className = "fas fa-thumbtack" id = { id } onClick = { onClickSaveArticle }></div>;
 
   return(
     <ArticleContainer>
       <div className = "articleContainer" >
-        {isSaved ? 
-          <div className = "fas fa-thumbtack" id = { id } onClick = { onClickSaveArticle }></div> : 
-          <div className = "fas fa-thumbtack" id = { id } onClick = { onClickSaveArticle }></div>}
+        {thumbtack}
         <h3 className = "articleTitle" >{ title }</h3>
         <p className = "articleContent"> { content.substring( 0, 80 ) + "..."  } </p>
 
