@@ -19,9 +19,10 @@ function App()
   
   useEffect( () => 
   {
-    axiosWithAuth().get( "/api/articles" )
-      .then( response => setListOfArticles( response.data.data ) )
-      .catch( response => console.log( response ) )
+    if( userLoggedIn )
+      axiosWithAuth().get( "/api/articles" )
+        .then( response => setListOfArticles( response.data.data ) )
+        .catch( response => console.log( response ) )
   }, [ userLoggedIn ] );
 
   //useEffect( () => {}, [ listOfArticles ] );
