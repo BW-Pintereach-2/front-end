@@ -6,6 +6,7 @@ import Articles from "./components/articles/Articles";
 import SignInForm from "./components/login-registration/SignInForm";
 import { CREATE_ACCOUNT, SIGN_IN } from "./utils/constants";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
+import PrivateRoute from "./utils/PrivateRoute";
 
 function App() 
 {
@@ -49,7 +50,7 @@ function App()
 
       <Switch>
         
-        <Route path = "/articles">
+        <PrivateRoute path = "/articles">
 
           <FilterContainer>
             <button id = "filterButton" onClick = { onClickButtonFilter } >View My Articles</button>
@@ -57,13 +58,15 @@ function App()
 
           { filter ? <Articles listOfArticles = { listOfArticles.filter( article => article.isSaved ) } onClickSaveArticle = { onClickSaveArticle } /> : <Articles listOfArticles = { listOfArticles } onClickSaveArticle = { onClickSaveArticle } /> }
           
-        </Route>
+        </PrivateRoute>
+
 
         <Route path = "/login" >
           <SignInForm setUser = { setAlreadyUser } setUserLoggedIn = { setUserLoggedIn } form = { signInForm } setForm = { setSignIn } />  
         </Route>
 
         <Route path = "/" exact>
+
           <Form 
             user = { [ alreadyUser, setAlreadyUser ] }
             form = { [ signInForm, createAccountForm ] }
