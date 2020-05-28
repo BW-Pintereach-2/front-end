@@ -1,7 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import FormContainer from "./FormStyled";
-
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
 export default function( { setUser, form, onChange } )

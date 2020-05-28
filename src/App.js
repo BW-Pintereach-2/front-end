@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import axios from "axios";
-
 import { Header, FilterContainer } from "./AppStyled";
 import Form from "./components/login-registration/Form";
 import Articles from "./components/articles/Articles";
@@ -10,9 +8,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 
 import { CREATE_ACCOUNT, SIGN_IN } from "./utils/constants";
 
-axios.defaults.baseURL = "https://pintereach-web29.herokuapp.com/";
-
-const d = [ { title : "HEllo", content : "asdfasf", pinned : true }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : true }, { title : "HEllo", content : "asdfasf", pinned : true }, { title : "HEllo", content : "asdfasf", pinned : false } ];
+const d = [ { title : "HEllo", content : "asdfasf asdfasf asdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasfasdfasf", pinned : true }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : true }, { title : "HEllo", content : "asdfasf", pinned : true }, { title : "HEllo", content : "asdfasf", pinned : false } ];
 
 function App() 
 {
@@ -35,8 +31,14 @@ function App()
   }
 
   useEffect( () => {
-
+    
   }, [ listOfArticles.length ] )
+
+  const onClickButtonFilter = function( e )
+  {
+    setFilter( !filter );
+    document.querySelector( "#filterButton" ).textContent = filter ? "View My Articles" : "View All Articles";
+  }
 
   return (
     <BrowserRouter>
@@ -48,7 +50,7 @@ function App()
         <Route path = "/articles">
 
           <FilterContainer>
-            <button onClick = { e => setFilter( !filter ) } >My Articles</button>
+            <button id = "filterButton" onClick = { onClickButtonFilter } >View My Articles</button>
           </FilterContainer>
 
           { filter ? <Articles listOfArticles = { listOfArticles.filter( article => article.pinned ) } /> : <Articles listOfArticles = { listOfArticles } /> }

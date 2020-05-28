@@ -14,9 +14,7 @@ export default function( { setUser, form, onChange } )
     axiosWithAuth()
       .post("/api/auth/register", form)
       .then( res => {
-        console.log(res);
         history.push( "/articles" );
-        console.log( "HELLO WORLD" );
       })
       .catch(err => {
         console.log(err);
