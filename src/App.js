@@ -1,42 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-
-import axios from "axios";
-
 import { Header, FilterContainer } from "./AppStyled";
 import Form from "./components/login-registration/Form";
 import Articles from "./components/articles/Articles";
-import PrivateRoute from "./utils/PrivateRoute";
-
+import SignInForm from "./components/login-registration/SignInForm";
 import { CREATE_ACCOUNT, SIGN_IN } from "./utils/constants";
-
-axios.defaults.baseURL = "https://pintereach-web29.herokuapp.com/";
-
-const d = [ { title : "HEllo", content : "asdfasf", pinned : true }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : false }, { title : "HEllo", content : "asdfasf", pinned : true }, { title : "HEllo", content : "asdfasf", pinned : true }, { title : "HEllo", content : "asdfasf", pinned : false } ];
+import { axiosWithAuth } from "./utils/axiosWithAuth";
 
 function App() 
 {
   const [ createAccountForm, setCreateAccountForm ] = useState( CREATE_ACCOUNT );
-  const [ signInForm       , setSignIn            ] = useState( SIGN_IN        );
-
-  const [ alreadyUser      , setAlreadyUser       ] = useState( false          );
+  const [ signInForm, setSignIn ] = useState( SIGN_IN );
+  const [ alreadyUser, setAlreadyUser ] = useState( false );
+  const [ filter, setFilter ] = useState( false );
+  const [ listOfArticles, setListOfArticles ] = useState( [] );
+  const [ userLoggedIn, setUserLoggedIn ] = useState( false ); 
   
-  const [ filter           , setFilter            ] = useState( false          );
-  const [ listOfArticles   , setListOfArticles    ] = useState( d              ); 
-  
-  const onChangeCreate = e => 
+  useEffect( () => 
   {
-    setCreateAccountForm( { ...createAccountForm, [ e.target.name ] : e.target.value } );
-  };
+    axiosWithAuth().get( "/api/articles" )
+      .then( response => setListOfArticles( response.data.data ) )
+      .catch( response => console.log( response ) )
+  }, [ userLoggedIn ] );
 
-  const onChangeSignIn = e =>
+  //useEffect( () => {}, [ listOfArticles ] );
+
+  const onClickButtonFilter = function( e )
   {
-    setSignIn( { ...signInForm, [ e.target.name ] : e.target.value } );
+    setFilter( !filter );
+    document.querySelector( "#filterButton" ).textContent = filter ? "View My Articles" : "View All Articles";
   }
 
-  useEffect( () => {
-
-  }, [ listOfArticles.length ] )
+  const onClickSaveArticle = function( e )
+  {
+    e.target.classList.toggle( "selected" ); 
+    setListOfArticles( listOfArticles.map( article => 
+    { 
+      if( article.id + "" === e.target.id )
+        article.isSaved = !article.isSaved;
+      return article; 
+    } ) );
+  }
 
   return (
     <BrowserRouter>
@@ -48,18 +52,23 @@ function App()
         <Route path = "/articles">
 
           <FilterContainer>
-            <button onClick = { e => setFilter( !filter ) } >My Articles</button>
+            <button id = "filterButton" onClick = { onClickButtonFilter } >View My Articles</button>
           </FilterContainer>
 
-          { filter ? <Articles listOfArticles = { listOfArticles.filter( article => article.pinned ) } /> : <Articles listOfArticles = { listOfArticles } /> }
+          { filter ? <Articles listOfArticles = { listOfArticles.filter( article => article.isSaved ) } onClickSaveArticle = { onClickSaveArticle } /> : <Articles listOfArticles = { listOfArticles } onClickSaveArticle = { onClickSaveArticle } /> }
           
+        </Route>
+
+        <Route path = "/login" >
+          <SignInForm setUser = { setAlreadyUser } setUserLoggedIn = { setUserLoggedIn } form = { signInForm } setForm = { setSignIn } />  
         </Route>
 
         <Route path = "/" exact>
           <Form 
-            user           = { [ alreadyUser       , setAlreadyUser     ] }
-            form           = { [ signInForm        , createAccountForm  ] }
-            onChange       = { [ onChangeSignIn    , onChangeCreate     ] }
+            user = { [ alreadyUser, setAlreadyUser ] }
+            form = { [ signInForm, createAccountForm ] }
+            setForm = { [ setSignIn, setCreateAccountForm ] }
+            setUserLoggedIn = { setUserLoggedIn }
           />
         </Route>
 
@@ -68,4 +77,5 @@ function App()
     </BrowserRouter>
   );
 }
+
 export default App;
