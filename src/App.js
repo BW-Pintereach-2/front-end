@@ -15,17 +15,18 @@ function App()
   const [ alreadyUser, setAlreadyUser ] = useState( false );
   const [ filter, setFilter ] = useState( false );
   const [ listOfArticles, setListOfArticles ] = useState( [] );
-  const [ userLoggedIn, setUserLoggedIn ] = useState( false ); 
+  const [ userLoggedIn, setUserLoggedIn ] = useState( false );
+  const [ categories, setCategories ] = useState( [] ); 
   
   useEffect( () => 
   {
     if( userLoggedIn )
+    {
       axiosWithAuth().get( "/api/articles" )
         .then( response => setListOfArticles( response.data.data ) )
         .catch( response => console.log( response ) )
+    }
   }, [ userLoggedIn ] );
-
-  //useEffect( () => {}, [ listOfArticles ] );
 
   const onClickButtonFilter = function( e )
   {
