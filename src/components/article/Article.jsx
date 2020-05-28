@@ -5,14 +5,16 @@ import "./Article.css";
 
 Modal.setAppElement( "#root" );
 
-export default function( { id, title, content, onClickSaveArticle } )
+export default function( { id, title, content, onClickSaveArticle, isSaved } )
 {
   const [ modal, setModal ] = useState( false );
 
   return(
     <ArticleContainer>
       <div className = "articleContainer" >
-        <div className = "fas fa-thumbtack" id = { id } onClick = { onClickSaveArticle }></div>
+        {isSaved ? 
+          <div className = "fas fa-thumbtack" id = { id } onClick = { onClickSaveArticle }></div> : 
+          <div className = "fas fa-thumbtack" id = { id } onClick = { onClickSaveArticle }></div>}
         <h3 className = "articleTitle" >{ title }</h3>
         <p className = "articleContent"> { content.substring( 0, 80 ) + "..."  } </p>
 

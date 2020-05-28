@@ -35,12 +35,27 @@ function App()
   const onClickSaveArticle = function( e )
   {
     e.target.classList.toggle( "selected" ); 
-    setListOfArticles( listOfArticles.map( article => 
-    { 
-      if( article.id + "" === e.target.id )
-        article.isSaved = !article.isSaved;
-      return article; 
-    } ) );
+    const id = e.target.id; 
+    const article = listOfArticles.find(em => em.id + "" === e.target.id);
+    axiosWithAuth()
+      .patch(`/api/articles/${id}`, {isSaved: !article.isSaved})
+      .then(res => {
+        console.log(res)
+        setListOfArticles( listOfArticles.map( article => { 
+            if( article.id + "" === id )
+              article.isSaved = !article.isSaved;
+            return article; 
+          } ) );
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    // setListOfArticles( listOfArticles.map( article => 
+    // { 
+    //   if( article.id + "" === e.target.id )
+    //     article.isSaved = !article.isSaved;
+    //   return article; 
+    // } ) );
   }
 
   return (
