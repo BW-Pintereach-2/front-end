@@ -1,0 +1,47 @@
+.articleTitle
+{
+  font-size : 60px;
+  letter-spacing : 3px;
+  color : #004BA8;
+}
+
+.articleContent
+{
+  font-size : 35px;
+  margin : 5px 40px;
+}
+
+.modalButton
+{
+  width : 450px;
+  height : 50px;
+  border-radius: 30px;
+  border-color: #004BA8;
+  color : #004BA8;
+  background-color: white;
+  font-size: 30px;
+  margin: 150px;
+  transition : all 0.8s;
+}
+
+.modalButton:hover
+{
+  background-color: #004BA8;
+  color : whitesmoke;
+}
+
+.ReactModal__Overlay 
+{
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.ReactModal__Overlay--after-open
+{
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close
+{
+  opacity: 0;
+}

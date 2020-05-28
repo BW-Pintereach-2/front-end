@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export default styled.div`
     background : whitesmoke;
-    width : 40%;
+    width : 43%;
+    min-width : 800px;
     height : 600px;
     margin : 200px auto 0;
     display : flex;
