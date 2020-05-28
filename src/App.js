@@ -55,13 +55,13 @@ function App()
           
         </Route>
 
-        <Route path = "/" exact>
+        <PrivateRoute exact path = "/" >
           <Form 
             user           = { [ alreadyUser       , setAlreadyUser     ] }
             form           = { [ signInForm        , createAccountForm  ] }
             onChange       = { [ onChangeSignIn    , onChangeCreate     ] }
           />
-        </Route>
+        </PrivateRoute>
 
       </Switch>
 
