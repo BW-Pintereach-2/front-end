@@ -3,10 +3,15 @@ import { useHistory } from "react-router-dom";
 import FormContainer from "./FormStyled";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
-export default function( { setUser, form, onChange, setUserLoggedIn } )
+export default function( { setUser, form, setForm, setUserLoggedIn } )
 {
 
   const history = useHistory();
+
+  const onChange = e =>
+  {
+    setForm( { ...form, [ e.target.name ] : e.target.value } );
+  }
 
   const onSubmit = e =>
   {
