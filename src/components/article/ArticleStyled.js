@@ -47,7 +47,7 @@ export default styled.div`
     margin : 5px 40px;
   }
 
-  a
+  .button
   {
     background : white;
     border-radius : 30px;
@@ -61,7 +61,7 @@ export default styled.div`
     transition : all 1s;
   }
 
-  a:hover
+  .button:hover
   {
     background : #004BA8;
     color : whitesmoke;

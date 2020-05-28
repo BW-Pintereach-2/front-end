@@ -19,11 +19,11 @@ function App()
   useEffect( () => 
   {
     axiosWithAuth().get( "/api/articles" )
-      .then( response => setListOfArticles( prev => prev.concat( response.data.data ) ) )
+      .then( response => setListOfArticles( response.data.data ) )
       .catch( response => console.log( response ) )
   }, [ userLoggedIn ] );
 
-  useEffect( () => {}, [ listOfArticles ] );
+  //useEffect( () => {}, [ listOfArticles ] );
 
   const onClickButtonFilter = function( e )
   {
