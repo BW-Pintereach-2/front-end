@@ -32,12 +32,7 @@ function App()
 
   useEffect( () => {
     axiosWithAuth().get( "/api/articles" )
-      .then( response => 
-        {
-          console.log( "HERE", response.data.data );
-          setListOfArticles( prev => prev.concat( response.data.data ) );
-          console.log( "WTF", listOfArticles );
-        } )
+      .then( response => setListOfArticles( prev => prev.concat( response.data.data ) ) )
       .catch( response => console.log( response ) )
 
   }, [ userLoggedIn ] );
