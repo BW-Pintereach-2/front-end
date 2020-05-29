@@ -6,7 +6,7 @@ export default function( { listOfArticles, onClickSaveArticle } )
 {
   return(
     <ArticlesContainer>
-        { listOfArticles.map( article => <Article key = { article.id } id = { article.id } title = { article.name } content = { article.article } onClickSaveArticle = { onClickSaveArticle } />) }
+        { listOfArticles.map( article => <Article key = { article.id } id = { article.id } title = { article.name } content = { article.article } onClickSaveArticle = { onClickSaveArticle } isSaved = {article.isSaved} />) }
     </ArticlesContainer>
   )
 }
