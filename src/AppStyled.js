@@ -9,7 +9,6 @@ const Header = styled.div`
   letter-spacing : 13px;
 `;
 
-
 const FilterContainer = styled.div`
   text-align : right;
   position : relative;
@@ -20,15 +19,15 @@ const FilterContainer = styled.div`
     width : 350px;
     height : 70px;  
     border-radius : 30px;
-    color : rgb( 190, 190, 190 );
     font-size : 26px;
     color : #004BA8;
+    background : whitesmoke;
     border : 3px solid #004BA8;
   }
 
-  button:hover
+  button
   {
-    background : #004BA8;
+    cursor : pointer;
   }
 `;
 
