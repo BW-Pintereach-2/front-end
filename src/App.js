@@ -45,7 +45,7 @@ function App()
 
       <Switch>
         
-        <Route path = "/articles">
+        <PrivateRoute path = "/articles">
 
           <FilterContainer>
             <button onClick = { e => setFilter( !filter ) } >My Articles</button>
@@ -53,15 +53,15 @@ function App()
 
           { filter ? <Articles listOfArticles = { listOfArticles.filter( article => article.pinned ) } /> : <Articles listOfArticles = { listOfArticles } /> }
           
-        </Route>
+        </PrivateRoute>
 
-        <PrivateRoute exact path = "/" >
+        <Route exact path = "/" >
           <Form 
             user           = { [ alreadyUser       , setAlreadyUser     ] }
             form           = { [ signInForm        , createAccountForm  ] }
             onChange       = { [ onChangeSignIn    , onChangeCreate     ] }
           />
-        </PrivateRoute>
+        </Route>
 
       </Switch>
 
