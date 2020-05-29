@@ -22,7 +22,7 @@ export default styled.div`
     background : whitesmoke;
     width : 100%;
     min-height : 500px;
-    min-width : 600px;
+    min-width : 400px;
     max-width : 800px;
     margin : 40px 30px;
     display : flex;

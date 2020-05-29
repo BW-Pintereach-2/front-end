@@ -1,29 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import FormContainer from "./FormStyled";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
+import { signInForm } from "../../utils/formSchema";
+import * as yup from "yup";
+
 export default function( { setUser, form, setForm, setUserLoggedIn } )
 {
-
   const history = useHistory();
+  const [ errorMessage, setErrorMessage ] = useState( { username : false, password : false } );
 
   const onChange = e =>
   {
-    setForm( { ...form, [ e.target.name ] : e.target.value } );
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setForm( { ...form, [ name ] : value } );
+
+    yup.reach( signInForm, name )
+         .validate( value )
+         .then( response =>
+          {
+            setErrorMessage( { ...errorMessage, [ name ] : true } )
+          } )
+         .catch( response =>
+          {
+            setErrorMessage( { ...errorMessage, [ name ] : false } )
+          } )
   }
 
   const onSubmit = e =>
   {
-    //Validate -> using YUP!!!
     e.preventDefault();
-    axiosWithAuth()
-      .post("/api/auth/login", form)
-      .then(res => {
+    
+    if( errorMessage[ "username" && errorMessage[ "password" ] ] )
+    {
+      axiosWithAuth()
+      .post( "/api/auth/login", form )
+      .then( res => 
+      {
         setUserLoggedIn( true );
-        localStorage.setItem('token', res.data.token);
+        localStorage.setItem( 'token', res.data.token );
         history.push( "/articles" );
-      })
+      } )
+      .catch( err =>
+      {
+        console.log( err );
+      } )
+    }
+    else
+    {
+      alert( "Error: Please Provide Valid Information" );
+    }
   }
 
   return(

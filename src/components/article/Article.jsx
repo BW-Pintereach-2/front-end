@@ -26,7 +26,7 @@ export default function( { id, title, content, onClickSaveArticle, isSaved } )
               overlay : 
               {
                 height : "85%",
-                width : "40%",
+                width : "95%",
                 margin : "auto auto"
               },
               content :

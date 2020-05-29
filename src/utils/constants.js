@@ -1,14 +1,13 @@
-
 const CREATE_ACCOUNT = 
 {
-    email    : "",
-    username     : "",
+    email : "",
+    username : "",
     password : "",
 };
 
 const SIGN_IN = 
 {
-    username    : "",
+    username : "",
     password : "",
 };
 

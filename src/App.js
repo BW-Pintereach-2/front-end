@@ -6,7 +6,7 @@ import Articles from "./components/articles/Articles";
 import SignInForm from "./components/login-registration/SignInForm";
 import { CREATE_ACCOUNT, SIGN_IN } from "./utils/constants";
 import { axiosWithAuth } from "./utils/axiosWithAuth";
-import PrivateRoute  from "./utils/PrivateRoute";
+import PrivateRoute from "./utils/PrivateRoute";
 
 function App() 
 {
@@ -19,9 +19,10 @@ function App()
   
   useEffect( () => 
   {
-    axiosWithAuth().get( "/api/articles" )
-      .then( response => setListOfArticles( response.data.data ) )
-      .catch( response => console.log( response ) )
+    if( userLoggedIn )
+      axiosWithAuth().get( "/api/articles" )
+        .then( response => setListOfArticles( response.data.data ) )
+        .catch( response => console.log( response ) )
   }, [ userLoggedIn ] );
 
   //useEffect( () => {}, [ listOfArticles ] );
@@ -74,6 +75,7 @@ function App()
         </Route>
 
         <Route path = "/" exact>
+
           <Form 
             user = { [ alreadyUser, setAlreadyUser ] }
             form = { [ signInForm, createAccountForm ] }
