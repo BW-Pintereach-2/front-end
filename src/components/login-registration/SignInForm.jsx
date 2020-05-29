@@ -34,7 +34,7 @@ export default function( { setUser, form, setForm, setUserLoggedIn } )
   {
     e.preventDefault();
     
-    if( errorMessage[ "username" && errorMessage[ "password" ] ] )
+    if( errorMessage[ "username" ] && errorMessage[ "password" ] )
     {
       axiosWithAuth()
       .post( "/api/auth/login", form )
@@ -55,6 +55,13 @@ export default function( { setUser, form, setForm, setUserLoggedIn } )
     }
   }
 
+  const notMember = e =>
+  {
+    e.preventDefault();
+    setUser( false );
+    history.push( "/" );
+  }
+
   return(
     <FormContainer>
         <form onSubmit = { onSubmit } >
@@ -62,7 +69,7 @@ export default function( { setUser, form, setForm, setUserLoggedIn } )
             <input type = "username" name = "username" placeholder = "Enter Username" value = { form.username } onChange = { onChange } />
             <input type = "password" name = "password" placeholder = "Enter Password" value = { form.password } onChange = { onChange } />
             <input type = "submit" value = "Log in" />
-            <button onClick = { e => setUser( false ) } >Not a Member?</button>
+            <button onClick = { notMember } >Not a Member?</button>
         </form>
     </FormContainer>
   )
