@@ -70,10 +70,6 @@ function App()
           { filter ? <Articles listOfArticles = { listOfArticles.filter( article => article.isSaved ) } onClickSaveArticle = { onClickSaveArticle } /> : <Articles listOfArticles = { listOfArticles } onClickSaveArticle = { onClickSaveArticle } /> }
           
         </PrivateRoute>
-<<<<<<< HEAD
-
-        <Route exact path = "/" >
-=======
 
         <Route path = "/login" >
           <SignInForm setUser = { setAlreadyUser } setUserLoggedIn = { setUserLoggedIn } form = { signInForm } setForm = { setSignIn } />  
@@ -81,7 +77,6 @@ function App()
 
         <Route path = "/" exact>
 
->>>>>>> d388540ec5b912047bc9b4d8e8d152044b886d51
           <Form 
             user = { [ alreadyUser, setAlreadyUser ] }
             form = { [ signInForm, createAccountForm ] }
