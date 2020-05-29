@@ -50,12 +50,6 @@ function App()
       .catch(err => {
         console.log(err)
       })
-    // setListOfArticles( listOfArticles.map( article => 
-    // { 
-    //   if( article.id + "" === e.target.id )
-    //     article.isSaved = !article.isSaved;
-    //   return article; 
-    // } ) );
   }
 
   return (
